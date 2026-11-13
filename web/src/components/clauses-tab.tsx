@@ -65,7 +65,10 @@ function Row({ node, q, depth }: { node: Node; q: string; depth: number }) {
         </button>
       </div>
       {showKids && (
-        <ul>{node.children.map((c, i) => <Row key={`${c.name}-${i}`} node={c} q={q} depth={depth + 1} />)}</ul>
+        <ul>{node.children.map((c, i) => (
+          // a matching group shows all its clauses, even untitled ones like "6.1"
+          <Row key={`${c.name}-${i}`} node={c} q={node.name.toLowerCase().includes(q) ? "" : q} depth={depth + 1} />
+        ))}</ul>
       )}
     </li>
   );

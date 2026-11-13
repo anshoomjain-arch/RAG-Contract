@@ -20,7 +20,7 @@ function check(name, ok, detail = "") {
   console.log(`${ok ? "PASS" : "FAIL"}  ${name}${detail ? `  (${detail})` : ""}`);
 }
 
-const browser = await chromium.launch();
+const browser = await chromium.launch({ channel: process.env.E2E_CHANNEL }); // e.g. "msedge": skip the Chromium download
 const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
 const page = await context.newPage();
 const errors = [];
@@ -32,7 +32,7 @@ page.on("console", (m) => m.type() === "error" &&
 /** Open a citation chip and check the panel shows the cited printed page and highlights text on it. */
 async function checkCitation(chip, name) {
   const label = await chip.getAttribute("aria-label");
-  const wanted = label.match(/\bp\. (\d+)/)?.[1];
+  const wanted = label.match(/(?<!PDF )\bp\. (\d+)/)?.[1];     // "PDF p. N" = unnumbered page: nothing printed to compare
   await chip.click();
   const dialog = page.getByRole("dialog");
   await dialog.locator(".react-pdf__Page canvas").waitFor({ timeout: 60_000 });
