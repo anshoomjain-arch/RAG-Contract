@@ -12,3 +12,4 @@ cdk.out/
 # Local AI-assistant instructions (kept on disk, not published)
 CLAUDE.md
 web/AGENTS.md
+.neon

@@ -1,7 +1,7 @@
 """Shared Neon connection helper (works locally and inside AWS Lambda).
 
 Resolution order for the connection string:
-  1. DATABASE_URL (or DATABASE_URL_DIRECT when direct=True) from the environment / .env.local
+  1. DATABASE_URL (or DATABASE_URL_UNPOOLED when direct=True) from the environment / .env.local
   2. AWS Secrets Manager, using the secret named in DATABASE_SECRET_ID (Lambda)
 """
 import os
@@ -18,7 +18,7 @@ except ImportError:
 
 
 def get_database_url(direct: bool = False) -> str:
-    env_name = "DATABASE_URL_DIRECT" if direct else "DATABASE_URL"
+    env_name = "DATABASE_URL_UNPOOLED" if direct else "DATABASE_URL"
     url = os.environ.get(env_name)
     if url:
         return url

@@ -37,7 +37,7 @@ Also in place:
 ## Production (not created yet)
 
 1. Neon: use the project's default branch (`main`) for production; run `python scripts/migrate.py` against it with
-   `DATABASE_URL_DIRECT` set to that branch.
+   `DATABASE_URL_UNPOOLED` set to that branch.
 2. `python scripts/put_secret.py --name billing-rag/prod` with `DATABASE_URL` set to the `main` pooled string.
 3. Deploy with `BILLING_RAG_SECRET=billing-rag/prod` and `ALLOWED_ORIGINS=<production site URL>` set (a separate Amplify backend environment, or `npx ampx pipeline-deploy` from CI with Docker available).
 4. Point the production branch of Amplify Hosting at that deploy's `apiUrl` and `chatUrl`.

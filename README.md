@@ -108,7 +108,7 @@ never paste it into chat or tickets.**
 
 ```
 DATABASE_URL=<pooled string>
-DATABASE_URL_DIRECT=<direct string>
+DATABASE_URL_UNPOOLED=<direct string>
 AWS_PROFILE=<your AWS CLI profile>
 BEDROCK_REGION=ap-southeast-2
 LLM_MODEL_ID=qwen.qwen3-32b-v1:0
@@ -334,7 +334,7 @@ object in `amplify/backend.ts` and redeploy the backend. There is no AWS Budgets
 
 | Problem | Cause and fix |
 |---|---|
-| `db_check.py`: `DATABASE_URL_DIRECT is not set` | `.env.local` is missing, misnamed, or not in the repo root |
+| `db_check.py`: `DATABASE_URL_UNPOOLED is not set` | `.env.local` is missing, misnamed, or not in the repo root |
 | Authentication or SSL error from Neon | Wrong or reset password: copy a fresh string from Neon **Connect**, keep `?sslmode=require` |
 | First query after a pause is slow | Neon suspends idle databases; the first query wakes it. Normal |
 | `AccessDeniedException` from Bedrock | Model access not enabled for that model in ap-southeast-2, or `AWS_PROFILE` points at another account |
