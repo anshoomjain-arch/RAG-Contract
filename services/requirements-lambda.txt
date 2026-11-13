@@ -1,0 +1,8 @@
+# Everything the Lambda container images need (SPEC section 2: PyMuPDF and pdfplumber exceed the zip limit).
+psycopg[binary]>=3.1
+pgvector>=0.3
+boto3>=1.34
+pymupdf>=1.24
+pdfplumber>=0.11
+starlette>=0.37      # chat app, streamed through the Lambda Web Adapter
+uvicorn>=0.30

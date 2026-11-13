@@ -1,0 +1,185 @@
+# Golden evaluation questions for the sample contract (SPEC section 15).
+# expected_clauses: any one of these (or a clause inside it, e.g. "9.3" covers "9.3.1") in the top 3 is a hit.
+# The first six come from the spec; the rest were written from the contract text in Phase 3 (review welcome).
+
+document: Master Tower Sharing Agreement
+questions:
+  # --- from the spec ---
+  - id: non-energy-base-rate
+    question: What is the Non-Energy Base Rate per site?
+    expected_clauses: ["S4:3.1"]
+    answer: USD 1,456 per calendar month (Schedule 4, para 3.1.1)
+  - id: new-sites-commitment
+    question: What is Airtel's minimum New Sites commitment?
+    expected_clauses: ["7.1"]
+    answer: 135 New Sites within 3 years of the Effective Date
+  - id: new-sites-discount
+    question: What discount applies to New Sites above the minimum commitment?
+    expected_clauses: ["7.9"]
+    answer: 15% off the Non-Energy Base Rate, until a Collocation Non-Energy Discount applies
+  - id: legacy-sites-list
+    question: Where is the list of Legacy Sites?
+    expected_clauses: ["S6"]
+    answer: Not included; "attached separately" (Schedule 6)
+  - id: precedence
+    question: Which document prevails if the MTSA and a Service Contract conflict?
+    expected_clauses: ["S7", "1.6"]
+    answer: The MTSA, unless the parties specifically agree otherwise (Schedule 7 form; Clause 1.6 requires both managing directors' written approval)
+  - id: parties-and-date
+    question: Who are the parties and when was it signed?
+    expected_clauses: ["preamble", "execution"]
+    answer: Madagascar Towers SA and Airtel Madagascar SA, 2 November 2021
+
+  # --- payment and tax ---
+  - id: payment-days
+    question: How many days does Airtel have to pay Towerco's invoices?
+    expected_clauses: ["8.2"]
+    answer: 30 days (Clause 8.2.1)
+  - id: late-interest
+    question: What interest is charged on late payments?
+    expected_clauses: ["8.3"]
+    answer: Simple interest at the Central Bank of Madagascar prime lending rate plus 2% per annum
+  - id: unpaid-90-days
+    question: What happens if Airtel leaves an invoice unpaid for 90 days?
+    expected_clauses: ["8.3"]
+    answer: The Service Levels, Service Credits and other Towerco obligations for the affected Sites cease to apply
+  - id: disputed-invoice
+    question: How does a party dispute an invoice?
+    expected_clauses: ["8.4"]
+    answer: Notify the other party in writing under Clause 8.4.2; undisputed parts remain payable
+  - id: withholding
+    question: Can payments be made net of withholding tax?
+    expected_clauses: ["9.2"]
+    answer: Only if required by Law; the payer must provide evidence the amount was paid to the Tax Authority
+  - id: sector-charges
+    question: How are changes in Sector Operational Charges passed on to Airtel?
+    expected_clauses: ["9.3"]
+    answer: Quarterly increases or decreases against the Effective Date Sector Operational Charges are adjusted (Clause 9.3)
+  - id: vat-costs
+    question: Do reimbursable costs include VAT?
+    expected_clauses: ["1.9"]
+    answer: Not VAT for which the person can obtain Relief under Law
+  - id: active-sharing-premium
+    question: What extra charge applies for active infrastructure sharing?
+    expected_clauses: ["S4:3.3"]
+    answer: An Active Sharing Premium of 35% of the Non-Energy Base Rate
+  - id: lcy-escalation
+    question: How is the LCY Portion escalated each year?
+    expected_clauses: ["S4:6.2"]
+    answer: On 1 January by a share of Madagascar CPI (CPI x 85% up to 15%; above that 15% x 85% + (CPI - 15%) x 50%)
+  - id: site-audit-cost
+    question: Who pays for the MTSA Site Audit?
+    expected_clauses: ["2.1.7"]
+    answer: Towerco 30% and Airtel 70%
+
+  # --- term and termination ---
+  - id: term
+    question: When does the agreement start and how long does it run?
+    expected_clauses: ["14.1"]
+    answer: From the Effective Date until terminated under Clause 14
+  - id: either-party-termination
+    question: On what grounds can either party terminate the agreement?
+    expected_clauses: ["14.2"]
+    answer: Expiry of all Service Contracts, Insolvency Event, change of Law, Force Majeure affecting 40% of Sites for 12 months, and others in Clause 14.2
+  - id: guarantor-default
+    question: Can Towerco terminate if Airtel's guarantor defaults on the guarantee?
+    expected_clauses: ["14.3"]
+    answer: Yes, by written notice if the Guarantor repudiates, terminates or fails to perform the Guarantee
+  - id: towerco-licence
+    question: Can Airtel terminate if Towerco loses its licence?
+    expected_clauses: ["14.6"]
+    answer: Yes, once Towerco no longer holds the Towerco Licence and has exhausted all appeals
+  - id: equipment-not-removed
+    question: What happens if Airtel does not remove its equipment after termination?
+    expected_clauses: ["15.6"]
+    answer: The Term is extended month to month for those Sites, with holdover charges (100% of charges for the first 30 days)
+  - id: force-majeure-termination
+    question: Can a Service Contract be terminated after a long force majeure event?
+    expected_clauses: ["19.3", "14.2"]
+    answer: Airtel may terminate if a Site is inoperable for 12 continuous months (Clause 19.3)
+  - id: exit-amount
+    question: What does Airtel pay to terminate Legacy Site contracts early above the allowed limits?
+    expected_clauses: ["21.5"]
+    answer: An Exit Amount of 70% of the NPV of the remaining Non-Energy Charges (Clause 21.5.2)
+  - id: pre-existing-condition
+    question: What can Towerco do if a Pre-Existing Condition is never cured?
+    expected_clauses: ["13.4"]
+    answer: After 6 months uncured, Towerco may terminate the relevant Service Contract by written notice
+
+  # --- liability, indemnity, insurance ---
+  - id: excluded-losses
+    question: Which types of loss are excluded from liability?
+    expected_clauses: ["16.1"]
+    answer: Loss of profit, revenue, turnover, savings, data, goodwill, reputation, and indirect or consequential loss
+  - id: liability-cap
+    question: What is the cap on each party's liability?
+    expected_clauses: ["16.2"]
+    answer: Per Service Contract, the previous Contract Year's revenues; 30% (excluding Service Credits) or 60% (including) of the previous year's revenues under the Agreement
+  - id: indemnity
+    question: When must one party indemnify the other?
+    expected_clauses: ["17"]
+    answer: For costs from a breach caused by gross negligence, wilful misconduct, or negligent or fraudulent misrepresentation
+  - id: airtel-insurance
+    question: What insurance must Airtel maintain?
+    expected_clauses: ["18.1"]
+    answer: Insurance for Airtel Equipment on Sites, including public liability and business interruption, as required by Law
+
+  # --- service levels and uptime ---
+  - id: platinum-uptime-year3
+    question: What uptime must Towerco achieve for a Platinum Site in Year 3?
+    expected_clauses: ["S3:2.13"]
+    answer: 99.85%
+  - id: monthly-uptime
+    question: How is Monthly Uptime calculated?
+    expected_clauses: ["S3:2.6"]
+    answer: Hours of Uptime divided by hours in the month minus Airtel Downtime and Planned and Unplanned Towerco Downtime
+  - id: site-access-credits
+    question: What service credits apply if Towerco misses the site access availability service levels?
+    expected_clauses: ["2.3", "S2:3"]
+    answer: Site Access Availability Service Credits under paragraph 3.2 of Schedule 2
+  - id: site-access-refusal
+    question: Can Towerco refuse Airtel access to a site?
+    expected_clauses: ["S8:4"]
+    answer: Only if the request is unclear or access is restricted by matters outside Towerco's control
+
+  # --- relocation and new sites ---
+  - id: refuse-relocation
+    question: Can Airtel refuse a site relocation?
+    expected_clauses: ["5.2.2"]
+    answer: Yes, if the Replacement Site is not to its reasonable technical satisfaction or the new Service Contract terms do not comply
+  - id: government-acquisition
+    question: What happens if a site is acquired by the government?
+    expected_clauses: ["5.2.1"]
+    answer: Towerco relocates the Airtel Equipment to a Replacement Site (Site Relocation)
+  - id: site-consolidation
+    question: How quickly must a party respond to a site consolidation proposal?
+    expected_clauses: ["4.3"]
+    answer: Within 7 Business Days
+  - id: alternate-sites
+    question: How many New Sites without Acceptable Co-ordinates can Airtel request?
+    expected_clauses: ["7.2"]
+    answer: Up to 27 Alternate Acceptable Sites during the Agreed Commitment Term
+
+  # --- disputes, law, assignment ---
+  - id: arbitration-seat
+    question: Where are disputes arbitrated and under which rules?
+    expected_clauses: ["25.3"]
+    answer: London, under the LCIA Rules
+  - id: governing-law
+    question: Which law governs the agreement?
+    expected_clauses: ["27.13"]
+    answer: The laws of England and Wales (except matters that must be governed by the laws of the Territory)
+  # --- exact lookups (identifiers and names that embeddings handle poorly) ---
+  - id: site-id-lookup
+    question: Which site has ID MGGT00519?
+    expected_clauses: ["S16"]
+    answer: Ampahana (Diego, Sava region), an off-air GBT site with a 50 m tower
+  - id: site-name-lookup
+    question: What is the tower height at Bemanevika?
+    expected_clauses: ["S16"]
+    answer: 50 metres
+
+  - id: assignment-group
+    question: Can a party assign the agreement to one of its group companies?
+    expected_clauses: ["26.2"]
+    answer: Yes, all (not part) of it, with the other party's consent, not to be unreasonably withheld

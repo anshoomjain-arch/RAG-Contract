@@ -1,0 +1,77 @@
+# Multi-turn and "not in the document" checks for the chat backend (SPEC section 13, Phase 5: "multi-turn follow-ups
+# work; 'not in the document' answers are honest"). Each conversation runs in order, so later turns depend on the
+# condense step. expected_clauses: [] means the honest answer is that the document does not say or does not include it.
+
+document: Master Tower Sharing Agreement
+conversations:
+  - id: late-payment
+    turns:
+      - question: What happens if Airtel pays an invoice late?
+        expected_clauses: ["8.3"]
+        answer: Unpaid sums accrue simple interest at the Central Bank of Madagascar prime lending rate plus 2% per annum
+      - question: What rate is used?
+        expected_clauses: ["8.3"]
+        answer: The prevailing prime lending rate of the Central Bank of Madagascar plus 2% per annum
+      - question: And if it stays unpaid for 90 days?
+        expected_clauses: ["8.3"]
+        answer: The Service Levels, Service Credits and other Towerco obligations for the affected Sites cease to apply until paid
+  - id: licence-termination
+    turns:
+      - question: Can Airtel terminate the agreement if Towerco loses its licence?
+        expected_clauses: ["14.6"]
+        answer: Yes, by written notice once Towerco no longer holds the Towerco Licence and has exhausted all valid rights of appeal
+      - question: And the other way round?
+        expected_clauses: ["14.5"]
+        answer: Towerco may terminate by written notice if Airtel no longer holds the Airtel Licence
+  - id: site-premiums
+    turns:
+      - question: What is the Non-Energy Base Rate?
+        expected_clauses: ["S4:3.1"]
+        answer: USD 1,456 per calendar month per Site
+      - question: Is there a premium for Platinum Sites?
+        expected_clauses: ["S4:3.2"]
+        answer: Yes, a Site Category Premium of 3% of the Non-Energy Base Rate
+      - question: What about Gold Sites?
+        expected_clauses: ["S4:3.2"]
+        answer: 1.5% of the Non-Energy Base Rate
+  - id: new-sites
+    turns:
+      - question: What is Airtel's minimum New Sites commitment?
+        expected_clauses: ["7.1"]
+        answer: 135 New Sites within 3 years of the Effective Date
+      - question: What happens if it is not met?
+        expected_clauses: ["7.5"]
+        answer: Towerco issues credit notes and Airtel must pay for the Agreed Minimum Commitment Shortfall as if Service Contracts had been signed (take-or-pay)
+      - question: Is there a discount for sites above it?
+        expected_clauses: ["7.9"]
+        answer: 15% off the Non-Energy Base Rate, until a Collocation Non-Energy Discount applies
+
+  # --- not in the document ---
+  - id: no-data-protection
+    turns:
+      - question: What does the contract say about personal data protection?
+        expected_clauses: []
+        answer: The document does not address personal data protection (pointing out that the confidentiality obligations are a separate matter is fine)
+  - id: no-carbon
+    turns:
+      - question: What carbon emission targets must Towerco meet?
+        expected_clauses: []
+        answer: The document does not set carbon emission targets
+  - id: legacy-site-list
+    turns:
+      - question: List the Legacy Sites.
+        expected_clauses: ["S6"]
+        answer: Not included; the list is in Schedule 6, which is attached separately
+  - id: exclusion-sites
+    turns:
+      - question: Which sites are Exclusion Sites?
+        expected_clauses: ["S11"]
+        answer: Not included; Schedule 11 (Exclusion Sites) is left blank in this document
+  - id: topic-switch
+    turns:
+      - question: How many days does Airtel have to pay an invoice?
+        expected_clauses: ["8.2"]
+        answer: 30 days
+      - question: Does the agreement have a data protection clause?
+        expected_clauses: []
+        answer: The document has no data protection clause (pointing out that the confidentiality obligations are a separate matter is fine)

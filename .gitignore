@@ -1,0 +1,14 @@
+.env
+.env.local
+samples/
+node_modules/
+__pycache__/
+.venv/
+.amplify/
+out/
+.pytest_cache/
+amplify_outputs.json
+cdk.out/
+# Local AI-assistant instructions (kept on disk, not published)
+CLAUDE.md
+web/AGENTS.md

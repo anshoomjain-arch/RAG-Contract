@@ -1,0 +1,20 @@
+# Amplify Hosting build: the static frontend only (docs/DECISIONS.md, Phase 7).
+# The backend (container-image Lambdas, which need Docker to build) is deployed separately with `npx ampx`.
+# Set NEXT_PUBLIC_API_URL and NEXT_PUBLIC_CHAT_URL in the Amplify app's environment variables to the ApiUrl and
+# ChatUrl outputs of that deploy (amplify_outputs.json, "custom").
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci --prefix web --cache .npm --prefer-offline
+    build:
+      commands:
+        - npm run build --prefix web
+  artifacts:
+    baseDirectory: web/out
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - .npm/**/*

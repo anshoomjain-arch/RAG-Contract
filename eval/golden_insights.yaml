@@ -1,0 +1,23 @@
+# Key-information checks for the sample contract (SPEC section 13, Phase 4: "parties, dates and key numbers
+# correct and cited"). A check passes when each `contains` string (case-insensitive, "per cent" read as "%") appears
+# in an item of the field that cites one of `cited` (or a clause inside it) and is not flagged unverified.
+
+document: Master Tower Sharing Agreement
+checks:
+  - {field: parties, contains: ["Madagascar Towers SA", "Airtel Madagascar SA"], cited: [preamble]}
+  - {field: agreement_date, contains: ["2 November 2021"], cited: [preamble, execution]}
+  - {field: fees_and_rates, contains: ["1,456"], cited: ["S4:3.1"]}
+  - {field: premiums_and_discounts, contains: ["35%"], cited: ["S4:3.3"]}
+  - {field: premiums_and_discounts, contains: ["15%"], cited: ["7.9"]}
+  - {field: escalation, contains: ["CPI"], cited: ["S4:6"]}
+  - {field: payment_terms, contains: ["30"], cited: ["8.2"]}
+  - {field: volume_commitments, contains: ["135"], cited: ["7.1"]}
+  - {field: term, contains: [["12", "twelve"]], cited: ["21.1"]}       # a list inside contains = alternatives
+  - {field: renewal, contains: [["5", "five"]], cited: ["21.1"]}
+  - {field: liability_caps, contains: ["30%"], cited: ["16.2"]}
+  - {field: liability_caps, contains: ["60%"], cited: ["16.2"]}
+  - {field: liability_exclusions, contains: ["profit"], cited: ["16.1"]}
+  - {field: insurance, contains: ["Airtel"], cited: ["18.1"]}
+  - {field: dispute_resolution, contains: ["London"], cited: ["25"]}       # seat; rules are named LCIA or in full
+  - {field: dispute_resolution, contains: ["England"], cited: ["27.13"]}
+  - {field: missing, contains: ["Schedule 6"], cited: ["S6"]}

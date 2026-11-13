@@ -1,0 +1,11 @@
+psycopg[binary]>=3.1
+pgvector>=0.3
+python-dotenv>=1.0
+boto3>=1.34
+-r services/ingest/requirements.txt
+pytest>=8
+pyyaml>=6     # eval/golden_questions.yaml
+starlette>=0.37   # chat app (Lambda Web Adapter)
+uvicorn>=0.30
+httpx>=0.27      # starlette TestClient
+python-multipart>=0.0.9   # scripts/dev_server.py (local uploads)
