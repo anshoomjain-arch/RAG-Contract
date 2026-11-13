@@ -6,7 +6,7 @@ import type { Chunk, ChatEvent, Conversation, Doc, Insights, Message, OutlineIte
 
 const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const CHAT = (process.env.NEXT_PUBLIC_CHAT_URL ?? "").replace(/\/$/, "");
-const TOKEN_KEY = "billing-rag.session";
+const TOKEN_KEY = "rag-contract.session";
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {

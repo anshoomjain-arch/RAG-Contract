@@ -10,7 +10,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 const serif = Source_Serif_4({ variable: "--font-serif", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Billing RAG",
+  title: "RAG-Contract",
   description: "Key information, summaries and cited answers for long-form contracts.",
 };
 

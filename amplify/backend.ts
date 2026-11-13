@@ -25,7 +25,7 @@ import * as secretsmanager from "aws-cdk-lib/aws-secretsmanager";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 
 const SERVICES = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "services");
-const SECRET_NAME = process.env.BILLING_RAG_SECRET ?? "billing-rag/dev";
+const SECRET_NAME = process.env.RAG_CONTRACT_SECRET ?? "rag-contract/dev";
 const LLM_MODEL_ID = process.env.LLM_MODEL_ID ?? "qwen.qwen3-32b-v1:0";
 const EMBEDDING_MODEL_ID = process.env.EMBEDDING_MODEL_ID ?? "amazon.titan-embed-text-v2:0";
 // Browser origins allowed to call the API, upload and stream chat. "*" until the Amplify Hosting URL exists
@@ -33,9 +33,9 @@ const EMBEDDING_MODEL_ID = process.env.EMBEDDING_MODEL_ID ?? "amazon.titan-embed
 const ORIGINS = (process.env.ALLOWED_ORIGINS ?? "*").split(",");
 
 const backend = defineBackend({});
-const stack = backend.createStack("billing-rag");
+const stack = backend.createStack("rag-contract");
 const region = Stack.of(stack).region;
-Tags.of(stack).add("project", "billing-rag");
+Tags.of(stack).add("project", "rag-contract");
 
 // --- storage and queue ---------------------------------------------------------------------------------------
 const bucket = new s3.Bucket(stack, "Uploads", {
@@ -152,7 +152,7 @@ new CfnOutput(stack, "IngestDlqName", { value: dlq.queueName });
 // console. Cost is bounded by the daily limits in the app (services/shared/limits.py), not by a budget alert.
 for (const [name, fn] of [["Ingest", ingest], ["Insights", insights], ["Api", api], ["Chat", chat]] as const) {
   new cloudwatch.Alarm(stack, `${name}Errors`, {
-    alarmDescription: `billing-rag ${name} Lambda errors (logs carry IDs only; see the function's log group)`,
+    alarmDescription: `rag-contract ${name} Lambda errors (logs carry IDs only; see the function's log group)`,
     metric: fn.metricErrors({ period: Duration.minutes(5), statistic: "Sum" }),
     threshold: 1, evaluationPeriods: 1,
     comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
@@ -160,7 +160,7 @@ for (const [name, fn] of [["Ingest", ingest], ["Insights", insights], ["Api", ap
   });
 }
 new cloudwatch.Alarm(stack, "IngestDeadLetters", {
-  alarmDescription: "billing-rag: an upload failed ingest twice and is in the dead-letter queue",
+  alarmDescription: "rag-contract: an upload failed ingest twice and is in the dead-letter queue",
   metric: dlq.metricApproximateNumberOfMessagesVisible({ period: Duration.minutes(5), statistic: "Maximum" }),
   threshold: 1, evaluationPeriods: 1,
   comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,

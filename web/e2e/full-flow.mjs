@@ -48,7 +48,7 @@ async function checkCitation(chip, name) {
 
 // 1. Library and upload. E2E_TOKEN and E2E_DOCUMENT resume on an already processed document instead (no upload).
 if (process.env.E2E_TOKEN) {
-  await context.addInitScript((t) => localStorage.setItem("billing-rag.session", t), process.env.E2E_TOKEN);
+  await context.addInitScript((t) => localStorage.setItem("rag-contract.session", t), process.env.E2E_TOKEN);
 }
 await page.goto(BASE);
 await page.getByText("Drop a contract PDF here").waitFor();
@@ -159,16 +159,16 @@ check("chat: feedback saved", saved);
 // 7. Dark mode and phone width
 const dark = await browser.newContext({ viewport: { width: 1280, height: 900 }, colorScheme: "dark" });
 const dp = await dark.newPage();
-await dp.addInitScript((t) => localStorage.setItem("billing-rag.session", t),
-                       await page.evaluate(() => localStorage.getItem("billing-rag.session")));
+await dp.addInitScript((t) => localStorage.setItem("rag-contract.session", t),
+                       await page.evaluate(() => localStorage.getItem("rag-contract.session")));
 await dp.goto(page.url());
 await dp.getByRole("heading", { name: "Executive summary" }).waitFor({ timeout: 30_000 });
 check("dark mode applied", await dp.evaluate(() => document.documentElement.classList.contains("dark")));
 await dp.screenshot({ path: `${shots}/7-dark.png` });
 const phone = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
 const pp = await phone.newPage();
-await pp.addInitScript((t) => localStorage.setItem("billing-rag.session", t),
-                       await page.evaluate(() => localStorage.getItem("billing-rag.session")));
+await pp.addInitScript((t) => localStorage.setItem("rag-contract.session", t),
+                       await page.evaluate(() => localStorage.getItem("rag-contract.session")));
 await pp.goto(page.url());
 await pp.getByRole("heading", { name: "Executive summary" }).waitFor({ timeout: 30_000 });
 const overflow = await pp.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

@@ -15,7 +15,7 @@ deployed (`npx ampx sandbox --once`); everything else is enforced in code and co
 | WAF rate limiting on the API | Not added | About $6 a month. The HTTP API is throttled instead (20 requests/s, burst 40, free). A Function URL cannot take WAF without CloudFront in front |
 | S3 private, short-lived presigned URLs, encryption on | Done | Bucket blocks public access, enforces TLS, SSE-S3; upload and PDF links expire in 5 minutes; uploads are a presigned POST that limits size (50 MB) and type |
 | Do not log document text or prompts | Done | Lambda logs are JSON with IDs, counts, timings and error type names only (audited 2026-10-30). Unhandled exceptions print a stack trace; none of the code formats contract text into an exception message |
-| Secrets only via Secrets Manager; `.env.example`, no real keys in git | Done | One secret (`billing-rag/dev`) written by `scripts/put_secret.py` without printing values; `.env.local`, `web/.env.local`, `out/` are git-ignored; commits are scanned for connection strings |
+| Secrets only via Secrets Manager; `.env.example`, no real keys in git | Done | One secret (`rag-contract/dev`) written by `scripts/put_secret.py` without printing values; `.env.local`, `web/.env.local`, `out/` are git-ignored; commits are scanned for connection strings |
 | Rate-limit chat per browser identity | Done | Questions count against the daily limit before any LLM call |
 | Cap upload size and page count; validate a real PDF | Done | 50 MB (S3 policy and ingest), 500 pages, `%PDF-` header, opens with PyMuPDF, not password-protected; a rejected file fails with a readable message and is not retried |
 | CloudWatch alarms for Lambda errors and ingest failures | Deploy | Five alarms: errors on each of the four functions, and any message in the ingest dead-letter queue. No email: their state shows in the CloudWatch console |
@@ -38,8 +38,8 @@ Also in place:
 
 1. Neon: use the project's default branch (`main`) for production; run `python scripts/migrate.py` against it with
    `DATABASE_URL_UNPOOLED` set to that branch.
-2. `python scripts/put_secret.py --name billing-rag/prod` with `DATABASE_URL` set to the `main` pooled string.
-3. Deploy with `BILLING_RAG_SECRET=billing-rag/prod` and `ALLOWED_ORIGINS=<production site URL>` set (a separate Amplify backend environment, or `npx ampx pipeline-deploy` from CI with Docker available).
+2. `python scripts/put_secret.py --name rag-contract/prod` with `DATABASE_URL` set to the `main` pooled string.
+3. Deploy with `RAG_CONTRACT_SECRET=rag-contract/prod` and `ALLOWED_ORIGINS=<production site URL>` set (a separate Amplify backend environment, or `npx ampx pipeline-deploy` from CI with Docker available).
 4. Point the production branch of Amplify Hosting at that deploy's `apiUrl` and `chatUrl`.
 
 ## Known gaps

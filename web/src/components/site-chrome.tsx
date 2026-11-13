@@ -30,7 +30,7 @@ export function SiteHeader() {
         <Link href="/" className="flex items-center gap-2 rounded-md font-heading text-lg font-semibold
                                   focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none">
           <FileText className="size-5 text-muted-foreground" aria-hidden />
-          Billing RAG
+          RAG-Contract
         </Link>
         <ThemeToggle />
       </div>

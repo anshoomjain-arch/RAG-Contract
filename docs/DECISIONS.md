@@ -245,7 +245,7 @@ is stored as a parse warning for the processing view (SPEC section 10).
 documents in total; for the whole app 30 ingests and 1,000 questions a day; API throttled to 20 requests/s. All are
 environment variables. Counters live in Neon so every Lambda instance shares them.
 
-**Secrets.** One Secrets Manager secret (`billing-rag/dev`) holds the pooled Neon string and the session key as
+**Secrets.** One Secrets Manager secret (`rag-contract/dev`) holds the pooled Neon string and the session key as
 JSON. `scripts/put_secret.py` writes it from `.env.local`, so the values never pass through CloudFormation or git.
 
 **No VPC.** The Lambdas reach Neon and Bedrock over TLS on the public endpoints, as local runs do; a VPC would need

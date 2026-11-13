@@ -1,4 +1,4 @@
-# Billing RAG
+# RAG-Contract
 
 Upload a contract PDF and the app reads it for you. It extracts the key information (parties, dates, fees,
 termination rights, liability caps and so on), writes a summary, and lets you ask questions in a chat. Every answer
@@ -80,8 +80,8 @@ use `source .venv/bin/activate` and `export NAME=value` instead.
 ### 1. Clone and install
 
 ```powershell
-git clone <repo url> billing-rag
-cd billing-rag
+git clone <repo url> rag-contract
+cd rag-contract
 py -3.13 -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
@@ -94,7 +94,7 @@ If npm reports that install scripts were blocked for `esbuild` or `@parcel/watch
 
 ### 2. Create the Neon database
 
-1. In the Neon console click **New Project**, name it `billing-rag`, region **AWS ap-southeast-2**.
+1. In the Neon console click **New Project**, name it `rag-contract`, region **AWS ap-southeast-2**.
 2. Neon creates a `main` branch. Keep it for production. Open **Branches > New branch**, name it `dev`, parent
    `main`. **Use `dev` for all development.**
 3. Open **Connect**, choose the `dev` branch, and copy two connection strings:
@@ -262,7 +262,7 @@ cd ..
 python -c "import zipfile,pathlib; r=pathlib.Path('web/out'); z=zipfile.ZipFile('site.zip','w',zipfile.ZIP_DEFLATED); [z.write(p,p.relative_to(r).as_posix()) for p in r.rglob('*') if p.is_file()]; z.close()"
 
 # First time only: create the app (with the security headers) and a branch
-$id = aws amplify create-app --name billing-rag --platform WEB --custom-headers (Get-Content customHttp.yml -Raw) --query app.appId --output text
+$id = aws amplify create-app --name rag-contract --platform WEB --custom-headers (Get-Content customHttp.yml -Raw) --query app.appId --output text
 aws amplify create-branch --app-id $id --branch-name main --stage PRODUCTION
 
 # Every time: upload and publish

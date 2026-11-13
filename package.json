@@ -1,5 +1,5 @@
 {
-  "name": "billing-rag",
+  "name": "rag-contract",
   "private": true,
   "type": "module",
   "scripts": {
