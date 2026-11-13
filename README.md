@@ -66,11 +66,11 @@ Browser (static Next.js site on Amplify Hosting)
 | **Git** | |
 | **Docker Desktop** | Only for deploying: the deploy builds the Lambda image. It must be running |
 | **AWS CLI v2** with a profile for the AWS account you will use | `aws configure --profile <name>` |
-| **Bedrock model access** in **us-east-1** for `qwen.qwen3-32b-v1:0` and `amazon.titan-embed-text-v2:0` | AWS console > Amazon Bedrock > Model access. Without it every model call fails |
+| **Bedrock model access** in **ap-southeast-2** for `qwen.qwen3-32b-v1:0` and `amazon.titan-embed-text-v2:0` | AWS console > Amazon Bedrock > Model access. Without it every model call fails |
 | **Neon account** | Free tier is enough for development |
 | **A contract PDF** | Must have a text layer (exported from Word, not scanned). The sample contract used by the evals is not in the repo because it is confidential: get it from the project owner and put it in `samples/` |
 
-Everything runs in **us-east-1** (Bedrock, Lambda, S3). The examples below use Windows PowerShell; on macOS or Linux
+Everything runs in **ap-southeast-2** (Bedrock, Lambda, S3). The examples below use Windows PowerShell; on macOS or Linux
 use `source .venv/bin/activate` and `export NAME=value` instead.
 
 ---
@@ -94,7 +94,7 @@ If npm reports that install scripts were blocked for `esbuild` or `@parcel/watch
 
 ### 2. Create the Neon database
 
-1. In the Neon console click **New Project**, name it `billing-rag`, region **AWS us-east-1**.
+1. In the Neon console click **New Project**, name it `billing-rag`, region **AWS ap-southeast-2**.
 2. Neon creates a `main` branch. Keep it for production. Open **Branches > New branch**, name it `dev`, parent
    `main`. **Use `dev` for all development.**
 3. Open **Connect**, choose the `dev` branch, and copy two connection strings:
@@ -110,7 +110,7 @@ never paste it into chat or tickets.**
 DATABASE_URL=<pooled string>
 DATABASE_URL_DIRECT=<direct string>
 AWS_PROFILE=<your AWS CLI profile>
-BEDROCK_REGION=us-east-1
+BEDROCK_REGION=ap-southeast-2
 LLM_MODEL_ID=qwen.qwen3-32b-v1:0
 EMBEDDING_MODEL_ID=amazon.titan-embed-text-v2:0
 EMBEDDING_DIMENSIONS=1024
@@ -199,12 +199,12 @@ Command-line runs store documents under the owner `local-dev`; browser uploads u
 
 ## Deploy to AWS
 
-The backend is deployed as an Amplify Gen 2 "sandbox" stack in us-east-1. Use the same AWS profile for every
+The backend is deployed as an Amplify Gen 2 "sandbox" stack in ap-southeast-2. Use the same AWS profile for every
 command in this section.
 
 ```powershell
 $env:AWS_PROFILE = "<your profile>"
-$env:AWS_REGION = "us-east-1"
+$env:AWS_REGION = "ap-southeast-2"
 aws sts get-caller-identity                     # confirm this is the account you mean to use
 
 # 1. Store the database URL and a session-signing key in Secrets Manager (values are never printed).
@@ -212,7 +212,7 @@ aws sts get-caller-identity                     # confirm this is the account yo
 python scripts/put_secret.py
 
 # 2. Once per account and region: prepare the account for CDK deploys
-npx cdk bootstrap "aws://$(aws sts get-caller-identity --query Account --output text)/us-east-1"
+npx cdk bootstrap "aws://$(aws sts get-caller-identity --query Account --output text)/ap-southeast-2"
 
 # 3. Build the Docker image and deploy everything (Docker Desktop must be running; about 10 minutes the first time)
 $env:ALLOWED_ORIGINS = "https://main.<app id>.amplifyapp.com"     # your site URL; leave unset on the very first deploy
@@ -337,7 +337,7 @@ object in `amplify/backend.ts` and redeploy the backend. There is no AWS Budgets
 | `db_check.py`: `DATABASE_URL_DIRECT is not set` | `.env.local` is missing, misnamed, or not in the repo root |
 | Authentication or SSL error from Neon | Wrong or reset password: copy a fresh string from Neon **Connect**, keep `?sslmode=require` |
 | First query after a pause is slow | Neon suspends idle databases; the first query wakes it. Normal |
-| `AccessDeniedException` from Bedrock | Model access not enabled for that model in us-east-1, or `AWS_PROFILE` points at another account |
+| `AccessDeniedException` from Bedrock | Model access not enabled for that model in ap-southeast-2, or `AWS_PROFILE` points at another account |
 | Deployed site: every request fails with HTTP 500 at `/session` | The secret is missing in the account you deployed to. Run `put_secret.py` with the same `AWS_PROFILE` as the deploy. The API's CloudWatch log shows `ResourceNotFoundException` |
 | Browser console: CORS error | `ALLOWED_ORIGINS` does not match the site URL exactly (scheme, no trailing slash). Redeploy the backend with the right value |
 | `npx ampx sandbox` fails while building the image | Docker Desktop is not running |

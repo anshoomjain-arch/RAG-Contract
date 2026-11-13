@@ -92,7 +92,7 @@ Browser (Next.js static site on AWS Amplify Hosting)
 | LLM | **Qwen3-32B** on Amazon Bedrock (Converse and ConverseStream APIs, IAM auth), behind an `LLMProvider` interface (`services/shared/llm.py`) |
 | Embeddings | **Amazon Titan Text Embeddings V2**, 1024 dimensions, normalised, behind an `EmbeddingProvider` interface (`services/shared/embeddings.py`) |
 | Secrets | One Secrets Manager secret (JSON: `DATABASE_URL`, `SESSION_KEY`) written by `scripts/put_secret.py`; never in git or CloudFormation |
-| Region | us-east-1 for Bedrock, Lambda, S3 and Neon. The static site can be hosted in any region |
+| Region | ap-southeast-2 for Bedrock, Lambda, S3 and Neon. The static site can be hosted in any region |
 | Network | No VPC: Lambdas reach Neon and Bedrock over TLS (a VPC would need a ~$32/month NAT gateway for no gain here) |
 
 **Qwen3-32B constraints the code respects**

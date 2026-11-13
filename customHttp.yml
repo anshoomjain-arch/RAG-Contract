@@ -1,5 +1,5 @@
 # Security headers for the static site on Amplify Hosting (Phase 8). connect-src allows only the API (HTTP API
-# Gateway), the streaming chat (Lambda Function URL) and S3 (presigned upload and PDF links) in us-east-1.
+# Gateway), the streaming chat (Lambda Function URL) and S3 (presigned upload and PDF links) in ap-southeast-2.
 # 'unsafe-inline' for scripts is required by Next.js static export (inline bootstrap scripts, no nonce without a
 # server). Tested with web/e2e/full-flow.mjs against the same policy (scripts/serve_static.py).
 customHeaders:
@@ -19,8 +19,8 @@ customHeaders:
         value: >-
           default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';
           img-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:;
-          connect-src 'self' https://*.execute-api.us-east-1.amazonaws.com https://*.lambda-url.us-east-1.on.aws
-          https://*.s3.amazonaws.com https://*.s3.us-east-1.amazonaws.com;
+          connect-src 'self' https://*.execute-api.ap-southeast-2.amazonaws.com https://*.lambda-url.ap-southeast-2.on.aws
+          https://*.s3.amazonaws.com https://*.s3.ap-southeast-2.amazonaws.com;
           frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
   - pattern: "**/*.mjs"
     headers:

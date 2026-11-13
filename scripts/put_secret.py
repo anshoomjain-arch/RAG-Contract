@@ -1,7 +1,7 @@
 """Create or update the Lambdas' Secrets Manager secret from .env.local, without printing any value.
 
-    python scripts/put_secret.py                 # secret billing-rag/dev in us-east-1
-    python scripts/put_secret.py --name billing-rag/prod --region us-east-1
+    python scripts/put_secret.py                 # secret billing-rag/dev in ap-southeast-2
+    python scripts/put_secret.py --name billing-rag/prod --region ap-southeast-2
 
 The secret is a JSON object {"DATABASE_URL": <pooled Neon string>, "SESSION_KEY": <random key>}. An existing
 SESSION_KEY is kept (changing it would invalidate every browser's session token) unless --rotate-session-key.
@@ -23,7 +23,7 @@ from shared.db import get_database_url  # noqa: E402  (also loads .env.local)
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--name", default="billing-rag/dev")
-    ap.add_argument("--region", default="us-east-1")
+    ap.add_argument("--region", default="ap-southeast-2")
     ap.add_argument("--rotate-session-key", action="store_true")
     args = ap.parse_args()
 
