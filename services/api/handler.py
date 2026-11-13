@@ -84,8 +84,10 @@ def _s3():
     global _s3_client
     if _s3_client is None:
         from botocore.config import Config
-        _s3_client = boto3.client("s3", region_name=os.environ.get("AWS_REGION", "ap-southeast-2"),
-                                  config=Config(signature_version="s3v4"))
+        region = os.environ.get("AWS_REGION", "ap-southeast-2")
+        # Regional endpoint: presigned links on the global s3.amazonaws.com get a 307 for new non-us-east-1 buckets
+        _s3_client = boto3.client("s3", region_name=region, endpoint_url=f"https://s3.{region}.amazonaws.com",
+                                  config=Config(signature_version="s3v4", s3={"addressing_style": "virtual"}))
     return _s3_client
 
 
